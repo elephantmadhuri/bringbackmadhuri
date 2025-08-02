@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bring Back Madhuri Movement</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f3f4f6;
+        }
+        .message-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 1rem 2rem;
+            background-color: #10b981;
+            color: white;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+        .message-box.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+
+
+
+    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl max-w-2xl w-full text-center">
+        <h1 class="text-3xl md:text-4xl font-bold mb-6 text-gray-800">Bring Back Madhuri Movement</h1>
+        <p class="text-gray-600 mb-8">
+            प्रथम<a href="https://play.google.com/store/apps/details?id=com.twitter.android&hl=en_IN" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline"> ट्वीटर(X) ॲप डाउनलोड करा</a>, लॉगिन करा. ट्वीट करण्यासाठी खालील निळ्या बटणावर क्लिक केले की दिसत असलेले ट्वीट कॉपी होईल आणि तुम्ही थेट ट्विटर (X) वर जाल, तिथे हे ट्वीट पेस्ट करा. पुन्हा या, पुन्हा हीच प्रोसेस फॉलो करा.
+        </p>
+       
+        <!-- This container will display the tweet text that is to be copied -->
+        <div id="tweet-container" class="min-h-[100px] bg-gray-50 p-6 rounded-xl border-2 border-gray-200 text-gray-700 text-lg text-left leading-relaxed mb-8">
+            <p id="tweet-text" class="italic text-gray-500">ट्विट कॉपी करण्यासाठी निळ्या बटणावर क्लिक करा...</p>
+        </div>
+       
+        <!-- This is the container for the main action buttons -->
+        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <button id="tweet-button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                कॉपी करा आणि X वर जा
+            </button>
+            <a href="info.html" class="inline-flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50">
+                अधिक माहिती
+            </a>
+        </div>
+       
+        <!-- New section added for the Telegram group link -->
+        <div class="mt-8 text-center">
+            <p class="text-gray-600 text-lg mb-2">नवीन अपडेटसाठी Telegram Group जॉइन करा.</p>
+            <a href="https://t.me/ElephantMadhuri" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline font-semibold text-lg transition-colors duration-300">https://t.me/ElephantMadhuri</a>
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+    <!-- Message box for user feedback, hidden by default -->
+    <div id="message-box" class="message-box"></div>
+
+
+
+
+        <script>
+        const tweetsEnglish = [
+            "The image of Madhuri crying as she was taken from her home is a powerful symbol of injustice. Her community's love is her true sanctuary. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @PetaIndia @dhruv_rathee",
+            "We are fully prepared to care for Madhuri, and with guidance from @Vantara_RF, we can provide the best treatment. She belongs with her loving community. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "Why is @Vantara_RF only interested in trained elephants, while so many other animals desperately need rescue? We want Madhuri back with her family! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @Ril_foundation @dhruv_rathee",
+            "We urge @PetaIndia to focus their efforts on the countless helpless stray animals that truly need a voice and attention. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @PetaIndia @dhruv_rathee",
+            "The high PM10 pollution levels near Vantara's factories are a grave health risk and could be fatal for animals. Madhuri's well-being should not be compromised. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @Vantara_RF @dhruv_rathee",
+            "We are fighting for Madhuri's emotional welfare, which is undeniably tied to her community. Her real home and sanctuary are here with us. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @PetaIndia @dhruv_rathee",
+            "We believe Madhuri's happiness depends on her being in her home, surrounded by her community. Our bond with her is unbreakable. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Ril_foundation @dhruv_rathee",
+            "Our community has the love and capacity to care for Madhuri. With @Vantara_RF's expert guidance, we can provide her with the best possible home. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "Madhuri's tears when she was taken away were a plea to be with her family. This heartbreaking image is a cry for justice we cannot ignore. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @PetaIndia @dhruv_rathee",
+            "Given @PetaIndia's stance against using horses in events, why were elephants present at the Ambani wedding? We seek consistency and a clear explanation. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @Vantara_RF @dhruv_rathee",
+            "The fatal PM10 pollution levels near Vantara factories pose a serious and real threat to Madhuri's health. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Ril_foundation @dhruv_rathee",
+            "We kindly request a compassionate resolution for Madhuri that honors her deep-rooted bond with our community. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "Our love for Madhuri is unconditional. We are fighting for what we know is best for her happiness and welfare—to be with us. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @PetaIndia @dhruv_rathee",
+            "Madhuri’s tears on that day were a profound emotional statement. We will never forget her pain and our community's sorrow. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "This is a matter of social justice and emotional well-being. The powerful bond between a community and an animal should not be ignored. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @Ril_foundation @dhruv_rathee",
+            "We are ready to collaborate with @Vantara_RF to ensure Madhuri's well-being right here at home. Our love is her true sanctuary. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "Our community is Madhuri's true home. We are her family, and we are fighting to bring her back to her rightful place. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @PetaIndia @dhruv_rathee",
+            "We firmly believe that Madhuri's welfare is best served with her community, the family that has cared for her for over 30 years. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @Ril_foundation @dhruv_rathee",
+            "The sorrow of Madhuri's absence is deeply felt by our entire village. We hope for a compassionate and just resolution. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @Vantara_RF @dhruv_rathee",
+            "The tears of Madhuri and the heartbreak of her community are inextricably linked. Please consider this powerful human-animal bond. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @PetaIndia @dhruv_rathee",
+            "If the goal of @Vantara_RF is rescue, why do they only seem to want trained elephants when so many other animals are in desperate need? We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @Ril_foundation @dhruv_rathee",
+            "We are fighting for Madhuri’s happiness, which is to be with her family in Nandani. We ask you to listen to our collective voice. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @PetaIndia @dhruv_rathee",
+            "An animal's true home is with the community that loves it. We believe this bond is crucial for Madhuri’s health and well-being. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Vantara_RF @dhruv_rathee",
+            "We kindly request an investigation into the PM10 levels near Vantara's factories, which pose a fatal health risk to animals. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @PetaIndia @dhruv_rathee",
+            "Madhuri's visible emotional distress when she was taken away is proof that the action was wrong. We stand united for her return. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @Ril_foundation @dhruv_rathee",
+            "A community's love provides a sanctuary that no facility can replicate. We believe her well-being is with us. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "PETA India’s stance against horses in events is clear, yet elephants were used at the Ambani wedding. This inconsistency is deeply concerning. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @PetaIndia @dhruv_rathee",
+            "Madhuri's health is at risk from the PM10 pollution near Vantara's factories. This is a fatal tragedy for animals that must be addressed. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @Ril_foundation @dhruv_rathee",
+            "Our love for Madhuri is an unbreakable bond. We will continue to advocate for her return with kindness, compassion, and justice. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "We believe Madhuri’s welfare is best served in her home with her community. We are ready to work with @Vantara_RF for her care. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @PetaIndia @dhruv_rathee",
+            "Our community has the love, and Vantara has the expertise. By combining these, we can ensure Madhuri's happiness. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @Ril_foundation @dhruv_rathee",
+            "The cries of Madhuri as she was taken away were a cry for her family. We hear her and we will continue to fight for her return. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "We urge @PetaIndia to focus on the helpless stray animals in our streets. Their suffering is a real and urgent issue. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @PetaIndia @dhruv_rathee",
+            "Madhuri’s tears were a heartbreaking plea. Her emotional bond with our community is irreplaceable and vital for her well-being. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @Ril_foundation @dhruv_rathee",
+            "The direct threat to Madhuri's health from the PM10 levels near Vantara's factories is a serious concern. This pollution is fatal for animals. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Vantara_RF @dhruv_rathee",
+            "An elephant's true sanctuary is with the people who love her most. We are Madhuri's family, and we are fighting for her. We demand Madhuri's return! #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @PetaIndia @dhruv_rathee",
+            "The forced separation of Madhuri from her community goes against the principles of compassion and animal welfare. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "Madhuri's pain is our pain. We will not rest until she is safely back with her community, where she is loved and cared for. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @Ril_foundation @dhruv_rathee",
+            "Every day Madhuri is away from her home is a day of injustice. Her emotional well-being is at risk. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @PetaIndia @dhruv_rathee",
+            "The world is watching. Madhuri's story is a test of our compassion for animals. We demand justice. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "Her tears are a silent protest. We are her voice. Bring her home. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @PetaIndia @dhruv_rathee",
+            "The bond between Madhuri and her community is a testament to love and mutual respect. This bond must be honored. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @Ril_foundation @dhruv_rathee",
+            "True welfare is not a cage, but a home filled with love. Madhuri’s home is with us. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "We are not just fighting for an elephant; we are fighting for the right of every animal to be with its family. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @PetaIndia @dhruv_rathee",
+            "Madhuri is more than just an elephant; she is a member of our family. Bring our family member back. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @Ril_foundation @dhruv_rathee",
+            "The community's love and care for Madhuri for decades is a bond that cannot be broken by a forced relocation. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Vantara_RF @dhruv_rathee",
+            "We question the motives behind the transfer of a healthy, loved elephant. This move feels more like a capture than a rescue. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @PetaIndia @dhruv_rathee",
+            "Let compassion guide our actions. Madhuri's well-being is best served by her return to Nandani. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @Ril_foundation @dhruv_rathee",
+            "The tears on Madhuri's face spoke volumes. They told a story of separation and sorrow. We must correct this injustice. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "We will continue to raise our voices until Madhuri is back with us. Her happiness is our priority. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @PetaIndia @dhruv_rathee",
+            "This isn't about facilities or money; it's about a bond of love that has been cruelly broken. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @Ril_foundation @dhruv_rathee",
+            "Every tweet, every share, every voice matters. Let's make sure our collective love brings Madhuri home. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "Madhuri's story is an example of what happens when a community's bond with an animal is disregarded. We stand against this. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @PetaIndia @dhruv_rathee",
+            "The community has shown for 30 years that we can provide a loving home. Let us prove it again with Vantara's support. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @Ril_foundation @dhruv_rathee",
+            "We want to know why a happy elephant was taken from her home. We deserve a clear and honest answer. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "The love and care we've given Madhuri is a priceless bond. No amount of money can replace it. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @PetaIndia @dhruv_rathee",
+            "A true sanctuary is a place where an animal feels safe and loved. For Madhuri, that place is Nandani. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @Ril_foundation @dhruv_rathee",
+            "Madhuri's return would be a victory for compassion, a victory for our community, and a victory for her. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Vantara_RF @dhruv_rathee",
+            "We are not asking for a favor; we are demanding justice for an animal who has been taken from her family. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @PetaIndia @dhruv_rathee",
+            "The emotional trauma Madhuri experienced is evident in her tears. We cannot stand by and ignore her pain. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @Ril_foundation @dhruv_rathee",
+            "The community's love and support is Madhuri's lifeline. Her well-being depends on being reunited with us. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "We will not give up until we see Madhuri's smiling face back in her home. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @PetaIndia @dhruv_rathee",
+            "We implore the authorities to listen to our pleas and bring Madhuri home. This is the right thing to do. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @Ril_foundation @dhruv_rathee",
+            "The world is watching how we treat animals. Let Madhuri's return be a testament to our humanity. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "Madhuri is our pride, our joy, and our responsibility. We are her protectors and her family. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @PetaIndia @dhruv_rathee",
+            "We believe that love is the best medicine, and Madhuri needs the love of her community to truly thrive. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @Ril_foundation @dhruv_rathee",
+            "The community of Nandani is ready to welcome Madhuri home with open hearts and arms. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "A sanctuary is not a place; it's a feeling of safety and belonging. Madhuri's sanctuary is with us. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @PetaIndia @dhruv_rathee",
+            "We will continue to advocate for Madhuri's return, no matter how long it takes. Our resolve is unbreakable. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @Ril_foundation @dhruv_rathee",
+            "The bond of love that Madhuri shares with our community is a source of inspiration. We are fighting to protect it. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Vantara_RF @dhruv_rathee",
+            "The injustice of Madhuri's removal from her home is a stain on our conscience. We must right this wrong. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @PetaIndia @dhruv_rathee",
+            "Our community has demonstrated decades of loving care for Madhuri. Her well-being is not a new concern for us. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @Ril_foundation @dhruv_rathee",
+            "We are fighting for a future where animals are not seen as property but as cherished members of our communities. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "Madhuri's story is a reminder of the power of a community's love. We are her voice and her family. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @PetaIndia @dhruv_rathee",
+            "We want to provide Madhuri with a home that is not just physically safe but emotionally secure. That home is with us. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @Ril_foundation @dhruv_rathee",
+            "The community's love and the decades of care we have given Madhuri are her true sanctuary. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "We will not let Madhuri's tears be in vain. Her return is a demand for justice. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @PetaIndia @dhruv_rathee",
+            "Madhuri's absence has left a void in our community that can only be filled by her return. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @Ril_foundation @dhruv_rathee",
+            "The bond between a community and an animal is sacred. We are fighting to restore that sacred bond. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "We are not anti-Vantara; we are pro-Madhuri's happiness and her well-being. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @PetaIndia @dhruv_rathee",
+            "Madhuri's story is a lesson in compassion. We are here to learn and to fight for her. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @Ril_foundation @dhruv_rathee",
+            "The PM10 pollution near Vantara’s facilities is a serious and immediate threat to Madhuri’s health. We demand an investigation. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Vantara_RF @dhruv_rathee",
+            "Our love for Madhuri is our greatest strength. With her return, we can show the world what true compassion looks like. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @PetaIndia @dhruv_rathee",
+            "We believe that Madhuri's emotional well-being is just as important as her physical health. And her well-being is with us. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @Ril_foundation @dhruv_rathee",
+            "The sight of Madhuri crying broke our hearts. It is a pain we relive every day she is away from home. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "The community's love and Madhuri's happiness are inseparable. We are fighting for both. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @PetaIndia @dhruv_rathee",
+            "The injustice of taking Madhuri from her family is an issue of animal rights and human compassion. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @Ril_foundation @dhruv_rathee",
+            "We are a community united by our love for Madhuri. Our collective voice is a force for change. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "Madhuri is not an object to be moved. She is a sentient being with a family that loves her deeply. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @PetaIndia @dhruv_rathee",
+            "We demand a transparent and just resolution that prioritizes Madhuri's emotional well-being and her bond with her community. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @Ril_foundation @dhruv_rathee",
+            "The community of Nandani is Madhuri’s chosen family. We are fighting to honor that choice. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "Let’s not forget the emotional trauma of being taken from one’s home. We are Madhuri's voice, and we will not be silenced. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @PetaIndia @dhruv_rathee",
+            "The community’s love and care for Madhuri has been her home for 30 years. It should continue to be. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @Ril_foundation @dhruv_rathee",
+            "Madhuri's happiness is the only metric that matters. And her happiness is with us. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Vantara_RF @dhruv_rathee",
+            "We ask for accountability for the actions that led to Madhuri's distress and her forced removal. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @PetaIndia @dhruv_rathee",
+            "The community is not against animal welfare; we are for animal welfare rooted in love and family. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @Ril_foundation @dhruv_rathee",
+            "We are fighting for a simple truth: love is the most powerful sanctuary. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "Madhuri’s tears were a cry for help. Her cry has been heard, and we are responding with our collective voice. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @PetaIndia @dhruv_rathee",
+            "We demand a resolution that is guided by compassion, not by corporate interests. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @Ril_foundation @dhruv_rathee",
+            "Let's bring Madhuri home and prove that a community's love is an unstoppable force. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "The bond between Madhuri and her people is a powerful example of the deep connections animals can have with humans. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @PetaIndia @dhruv_rathee",
+            "We stand united in our mission to bring Madhuri back to her rightful home in Nandani. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @Ril_foundation @dhruv_rathee",
+            "We will not forget Madhuri's tears. They fuel our fight for her return. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "Justice for Madhuri means her return to her home and the people who have loved her for decades. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @PetaIndia @dhruv_rathee",
+            "The community has the love, the will, and the capacity to care for Madhuri. We just need her back. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @Ril_foundation @dhruv_rathee",
+            "Madhuri's story is a call to action. We must stand up for animals who have been wronged. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Vantara_RF @dhruv_rathee",
+            "The sorrow of her absence is a constant reminder of the injustice. Let’s end this by bringing her home. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @PetaIndia @dhruv_rathee",
+            "We believe that Madhuri’s welfare is best determined by the people who know her best: her community. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @Ril_foundation @dhruv_rathee",
+            "Our protest is one of love. We are protesting against the separation of a family. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "The world is a better place when communities and animals can live together in harmony. Bring Madhuri home. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @PetaIndia @dhruv_rathee",
+            "Madhuri's tears were a profound emotional appeal. We must respond with compassion. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @Ril_foundation @dhruv_rathee",
+            "We kindly ask for a resolution that respects the decades-long bond between Madhuri and her people. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "Our community's love for Madhuri is her true sanctuary. It is a love that cannot be bought or replicated. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @PetaIndia @dhruv_rathee",
+            "We will continue to advocate for Madhuri's well-being until she is back where she belongs: in her home. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @Ril_foundation @dhruv_rathee",
+            "The injustice of Madhuri’s separation from her family is a stark reminder of the challenges animals face. We are her voice. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "A true sanctuary provides emotional as well as physical safety. Madhuri’s emotional safety is with her community. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @PetaIndia @dhruv_rathee",
+            "The fight to bring Madhuri home is a fight for the heart of our community. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @Ril_foundation @dhruv_rathee",
+            "Every day is a day of hope. We hope for a compassionate resolution that brings Madhuri back to her family. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Vantara_RF @dhruv_rathee",
+            "The love we feel for Madhuri is an unbreakable bond that has spanned decades. We are fighting to protect it. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @PetaIndia @dhruv_rathee",
+            "We are not just a community; we are Madhuri's family. We demand the right to care for her. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @Ril_foundation @dhruv_rathee",
+            "Madhuri's well-being is inextricably linked to her home and her community. We demand she be returned to both. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "The tears of Madhuri were a powerful message. We are fighting to give that message a voice. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @PetaIndia @dhruv_rathee",
+            "Our community is united by our love for Madhuri. We will not rest until she is safely home. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @Ril_foundation @dhruv_rathee",
+            "The forced separation of Madhuri is a tragic event that must be corrected. We demand justice. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "A sanctuary is a place of peace and love. For Madhuri, that place is with her community in Nandani. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @PetaIndia @dhruv_rathee",
+            "We are fighting for Madhuri’s happiness and emotional health, which are with us, her family. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @Ril_foundation @dhruv_rathee",
+            "The injustice of taking Madhuri from her family is a tragedy we are working to reverse. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "Our community's love is Madhuri's true sanctuary. This bond is irreplaceable. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @PetaIndia @dhruv_rathee",
+            "We will continue to raise our voices until Madhuri's story has a happy ending: her return home. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @Ril_foundation @dhruv_rathee",
+            "Madhuri's tears were a cry for her family. We are responding by fighting for her. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Vantara_RF @dhruv_rathee",
+            "We believe that a community's love and care are a powerful form of animal welfare. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @PetaIndia @dhruv_rathee",
+            "The community of Nandani has a right to care for Madhuri, just as she has a right to be with her family. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @Ril_foundation @dhruv_rathee",
+            "The love and care we've given Madhuri for 30 years is a testament to her true home. Bring her back! #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @republic @Vantara_RF @dhruv_rathee",
+            "Madhuri is not just an elephant; she is our family. We demand she be treated with compassion. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @ZeeNews @PetaIndia @dhruv_rathee",
+            "The injustice of Madhuri's removal from her home will not be forgotten. We will continue to fight for her. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @abpmajhatv @Ril_foundation @dhruv_rathee",
+            "Our community's voice is Madhuri's voice. We are united in our demand for her return. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @aajtak @Vantara_RF @dhruv_rathee",
+            "Madhuri's happiness is our happiness. Her return is our victory. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @republic @Ril_foundation @dhruv_rathee",
+            "We believe that a true sanctuary is a place of love, not a facility. Madhuri's home is with us. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @ZeeNews @PetaIndia @dhruv_rathee",
+            "The community has the right to care for Madhuri, and she has the right to be with her family. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @abpmajhatv @Ril_foundation @dhruv_rathee",
+            "The love we have for Madhuri is an unbreakable bond. We will fight to protect it. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @aajtak @Vantara_RF @dhruv_rathee",
+            "We are not just asking for Madhuri's return; we are demanding justice for her. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @republic @PetaIndia @dhruv_rathee",
+            "Madhuri's tears were a silent scream for her family. We are responding with our collective voice. #BringBackMadhuri #BoycottJio #BoycottReliance @pmoindia @ZeeNews @Ril_foundation @dhruv_rathee",
+            "The community's love and care for Madhuri is a priceless bond that cannot be broken. #BringBackMadhuri #BoycottJio #BoycottReliance @rashtrapatibhvn @abpmajhatv @Vantara_RF @dhruv_rathee",
+            "We will continue to advocate for Madhuri's well-being until she is home. #BringBackMadhuri #BoycottJio #BoycottReliance @CMOMaharashtra @aajtak @PetaIndia @dhruv_rathee"
+        ];
+       
+        let tweetCount = 0;
+
+
+        const tweetTextElement = document.getElementById('tweet-text');
+        const tweetButton = document.getElementById('tweet-button');
+        const messageBox = document.getElementById('message-box');
+
+
+        function selectRandomTweet() {
+            const randomIndex = Math.floor(Math.random() * tweetsEnglish.length);
+            const tweet = tweetsEnglish[randomIndex];
+            tweetTextElement.textContent = tweet;
+        }
+
+
+        function copyAndRedirect() {
+            const tweetToCopy = tweetTextElement.textContent;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = tweetToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+
+
+            try {
+                document.execCommand('copy');
+                showMessage("Tweet copied!");
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                showMessage("Failed to copy tweet.");
+            } finally {
+                document.body.removeChild(tempTextArea);
+            }
+
+
+            // Redirect to X after a 2-second delay
+            setTimeout(() => {
+                window.location.href = 'https://x.com/compose/post';
+            }, 2000);
+           
+            // Prepare the next tweet so it's ready when the user comes back
+            selectRandomTweet();
+        }
+
+
+        function showMessage(message) {
+            messageBox.textContent = message;
+            messageBox.classList.add('visible');
+            setTimeout(() => {
+                messageBox.classList.remove('visible');
+            }, 2000);
+        }
+
+
+        tweetButton.addEventListener('click', copyAndRedirect);
+
+
+        document.addEventListener('DOMContentLoaded', selectRandomTweet);
+    </script>
+</body>
+</html>
+
+
+
